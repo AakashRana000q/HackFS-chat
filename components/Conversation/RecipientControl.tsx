@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import AddressInput from '../AddressInput'
 import useWallet from '../../hooks/useWallet'
 import useXmtp from '../../hooks/useXmtp'
+import getWallet from '../../lens-api/get-wallet'
+
 type RecipientInputProps = {
   recipientWalletAddress: string | undefined
   onSubmit: (address: string) => Promise<void>
@@ -72,6 +74,15 @@ const RecipientControl = ({
       if (recipientValue.endsWith('eth')) {
         setRecipientInputMode(RecipientInputMode.FindingEntry)
         const address = await resolveName(recipientValue)
+        if (address) {
+          await completeSubmit(address, input)
+        } else {
+          setRecipientInputMode(RecipientInputMode.InvalidEntry)
+        }
+      } else if (recipientValue.startsWith('Lens-')) {
+        setRecipientInputMode(RecipientInputMode.FindingEntry)
+        const address = await getWallet(String(recipientValue).slice(5))
+        console.log(address, ' pipi')
         if (address) {
           await completeSubmit(address, input)
         } else {

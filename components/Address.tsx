@@ -1,5 +1,6 @@
 import { classNames } from '../helpers'
 import useEns from '../hooks/useEns'
+import getProfile from '../lens-api/get-profile'
 
 type AddressProps = {
   address: string
@@ -13,7 +14,7 @@ const shortAddress = (addr: string): string =>
 
 const Address = ({ address, className }: AddressProps): JSX.Element => {
   const { name, loading } = useEns(address)
-
+  const usern: string = getProfile(address)
   return (
     <span
       className={classNames(
@@ -23,7 +24,7 @@ const Address = ({ address, className }: AddressProps): JSX.Element => {
       )}
       title={address}
     >
-      {name || shortAddress(address)}
+      {usern || name || shortAddress(address)}
     </span>
   )
 }
