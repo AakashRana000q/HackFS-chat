@@ -1,11 +1,14 @@
 import { Conversation, Message, Stream } from '@xmtp/xmtp-js'
 import { useContext, useCallback, useState, useEffect } from 'react'
 import { XmtpContext } from '../contexts/xmtp'
+import getProfile from '../lens-api/get-profile-async'
 
 type OnMessageCallback = () => void
 
-function showNotification(msg: string, id: string) {
+async function showNotification(msg: string, id: string) {
   console.log(msg, id)
+  let prof: string = await getProfile(id)
+  prof = prof ? prof : id
   navigator.serviceWorker.controller?.postMessage({ msg: msg, id: id })
 }
 
@@ -13,7 +16,8 @@ const useConversation = (
   peerAddress: string,
   onMessageCallback?: OnMessageCallback
 ) => {
-  const { walletAddress,client, getMessages, dispatchMessages } = useContext(XmtpContext)
+  const { walletAddress, client, getMessages, dispatchMessages } =
+    useContext(XmtpContext)
   const [conversation, setConversation] = useState<Conversation | null>(null)
   const [stream, setStream] = useState<Stream<Message>>()
   const [loading, setLoading] = useState<boolean>(false)
