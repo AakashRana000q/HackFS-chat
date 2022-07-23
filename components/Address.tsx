@@ -14,7 +14,7 @@ const shortAddress = (addr: string): string =>
 
 const Address = ({ address, className }: AddressProps): JSX.Element => {
   const { name, loading } = useEns(address)
-  let usern: string = getProfile(address)
+  const usern: string = getProfile(address)
   return (
     <span
       className={classNames(
