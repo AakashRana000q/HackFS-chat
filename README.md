@@ -1,7 +1,7 @@
 This is a chat feature for decentralized social media Lenster. It is built on top of XMTP protocol. Users can now search using Lenster handle id's instead of wallet addresses only. Also, we have added a notification feature, when you recieve a new message, a notification appears on your desktop.
 
-This is made with the help of example-chat-react application provided by XMTP.
-Deployed at https://hack-fs-chat.vercel.app/
+This is made with the help of example-chat-react application provided by XMTP. 
+It is currently deployed at https://hack-fs-chat.vercel.app/
 
 ![Test](https://github.com/xmtp/example-chat-react/actions/workflows/test.yml/badge.svg)
 ![Lint](https://github.com/xmtp/example-chat-react/actions/workflows/lint.yml/badge.svg)
