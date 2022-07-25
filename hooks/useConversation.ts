@@ -4,9 +4,11 @@ import { XmtpContext } from '../contexts/xmtp'
 
 type OnMessageCallback = () => void
 
-async function showNotification(msg: string, id: string) {
+async function showNotification(msg: string, id: string | undefined) {
   console.log(msg, id)
-  navigator.serviceWorker.controller?.postMessage({ msg: msg, id: id })
+  if(id!==undefined){
+    navigator.serviceWorker.controller?.postMessage({ msg: msg, id: id })
+  }
 }
 
 const useConversation = (
@@ -76,7 +78,7 @@ const useConversation = (
           location.href.includes(peerAddress) &&
           walletAddress !== msg.senderAddress
         ) {
-          showNotification(msg.content, msg.id)
+          showNotification(msg.content, msg.senderAddress)
           console.log(walletAddress)
           console.log(client)
         }
